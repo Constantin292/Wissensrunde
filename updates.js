@@ -1,4 +1,4 @@
-/* Wissensrunde – kleine, separat aktualisierbare Erweiterungen.
-   Diese Datei ist zunächst absichtlich leer und verändert das Spiel nicht.
-   Neue Funktionen werden erst nach Prüfung hier ergänzt. */
+/* Wissensrunde – Erweiterungen, separat aktualisierbar.
+   Noch keine aktiven Änderungen am Spiel.
+   Das Einbinden erfolgt über einen GitHub-Workflow. */
 'use strict';
