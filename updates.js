@@ -1,4 +1,2 @@
-/* Wissensrunde – Erweiterungen, separat aktualisierbar.
-   Noch keine aktiven Änderungen am Spiel.
-   Das Einbinden erfolgt über einen GitHub-Workflow. */
-'use strict';
+/* Version 59 – nur auf Entwicklungszweig. */
+(function(){var s=document.createElement('script');s.src='./v59-extras.js';s.defer=true;document.body.appendChild(s)})();
