@@ -14,8 +14,8 @@ for(let i=53;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq
 for(let pass=0;pass<2000;pass++){let bad=seq.findIndex((v,i)=>v===seq[(i+1)%54]);if(bad<0)break;let options=seq.map((_,j)=>j).filter(j=>j!==bad&&j!==(bad+1)%54&&seq[j]!==seq[(bad+53)%54]&&seq[j]!==seq[(bad+1)%54]&&seq[bad]!==seq[(j+53)%54]&&seq[bad]!==seq[(j+1)%54]);if(options.length){let j=options[0];[seq[bad],seq[j]]=[seq[j],seq[bad]]}}
 if(seq.some((v,i)=>v===seq[(i+1)%54]))throw Error('Kategorienfolge ungültig');
 const board=document.getElementById('board'),status=document.getElementById('status');let position=0;
-const coords=[];for(let x=0;x<15;x++)coords.push([x,0]);for(let y=1;y<15;y++)coords.push([14,y]);for(let x=13;x>=0;x--)coords.push([x,14]);for(let y=13;y>=1;y--)coords.push([0,y]);
-const points=coords.slice(0,54);const tiles=[];
+const coords=[];for(let x=0;x<14;x++)coords.push([x,0]);for(let y=1;y<15;y++)coords.push([13,y]);for(let x=12;x>=0;x--)coords.push([x,14]);for(let y=13;y>=1;y--)coords.push([0,y]);
+const points=coords; if(points.length!==54)throw Error('Spielfeldgeometrie ungültig');const tiles=[];
 points.forEach(([x,y],i)=>{const e=document.createElement('div');e.className='tile'+(i===0?' start':'')+(seq[i]===7?' nature':'');e.style.gridColumn=(x+1);e.style.gridRow=(y+1);e.style.setProperty('--c',i===0?'#f69ec1':colors[seq[i]]);e.innerHTML='<span>'+ (i===0?'★':symbols[seq[i]]) +'</span><span class="n">'+(i+1)+'</span>';e.title='Feld '+(i+1)+' · '+names[seq[i]];board.append(e);tiles.push(e)});
 function show(){tiles.forEach((e,i)=>e.dataset.selected=String(i===position));status.textContent='Feld '+(position+1)+' · '+names[seq[position]]}
 show();document.getElementById('roll').onclick=()=>{let n=1+Math.floor(Math.random()*6);position=(position+n)%54;show();status.textContent='🎲 '+n+' gewürfelt · '+status.textContent};document.getElementById('reset').onclick=()=>{position=0;show()};
