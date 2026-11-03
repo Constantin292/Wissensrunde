@@ -16,7 +16,7 @@ for attempt in range(10000):
 else: raise ValueError('No valid category ordering')
 s=s[:m.start(1)]+','.join(map(str,seq))+s[m.end(1):]
 assert 'const size=1.095;' in s
-s=s.replace('const size=1.095;', 'const size=.555;',1)
+s=s.replace('const size=1.095;', 'const size=(i%13.5<1.1||i%13.5>12.4)?1.025:1.095;',1)
 # Increase glyph contrast with dark backing on all category tiles.
 anchor='for(let i=1;i<cells.length;i++)glyph(seq[i],cells[i][0],cells[i][1]);'
 assert anchor in s
@@ -42,6 +42,6 @@ s=s.replace('</body>',inject+'</body>',1)
 assert all(seq[i]!=seq[(i+1)%54] for i in range(54))
 assert len(s)>1_000_000
 p.write_text(s,encoding='utf-8')
-print('Version 59: 54 distinct categories checked, corners resized, symbols contrasted, settings moved')
+print('Version 59: 54 distinct categories checked, corner fields selectively adjusted, symbols contrasted, settings moved')
 
 # Trigger preview build
