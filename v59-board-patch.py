@@ -22,19 +22,22 @@ anchor='for(let i=1;i<cells.length;i++)glyph(seq[i],cells[i][0],cells[i][1]);'
 assert anchor in s
 s=s.replace(anchor, "for(let i=1;i<cells.length;i++){box(cells[i][0],.166,cells[i][1],.38,.008,.38,color('#12354a'));glyph(seq[i],cells[i][0],cells[i][1]);}",1)
 # Replace the original settings dock with a collapsible settings menu only during gameplay.
-inject=r"""
-<script id="v59BoardSettings">
-(function(){
-'use strict';
-const dock=document.getElementById('v51LandscapeControls');
-if(!dock)return;
-const settings=document.querySelector('#settingsPanel, #settingsModal, .settings-panel, .settings-modal, #settings, [data-panel="settings"]');
-if(!settings){dock.style.display='none';console.warn('Wissensrunde 59: existing settings container not identified; landscape controls hidden until integration');return}
-dock.style.position='static';dock.style.inset='auto';dock.style.display='block';dock.style.margin='12px 0';
-settings.appendChild(dock);
-})();
-</script>
-"""
+# Integrate controls in the actual Alter & Schwierigkeitsgrad modal.
+anchor="audio.onclick=v55AudioSettings;makeSelect(root,'Fragen auswählen nach'"
+assert anchor in s, 'Original settings modal structure changed'
+replacement="""audio.onclick=v55AudioSettings;
+let envBtn=el('button','🌦 Jahreszeiten & Wetter',root);envBtn.className='action';
+envBtn.onclick=()=>openConfig('Jahreszeiten & Wetter',pane=>{
+ const season=document.getElementById('v51Season'),weather=document.getElementById('v51Weather');
+ if(!season||!weather){el('p','Wettersteuerung nicht verfügbar.',pane);return}
+ makeSelect(pane,'Jahreszeit',['Sommer','Frühling','Herbst','Winter'],season.value,v=>{season.value=v;season.dispatchEvent(new Event('change'))});
+ makeSelect(pane,'Wetter',['Klar','Regen','Schnee'],weather.value,v=>{weather.value=v;weather.dispatchEvent(new Event('change'))});
+ let back=el('button','Zurück',pane);back.className='action';back.onclick=settings;
+});
+makeSelect(root,'Fragen auswählen nach'"""
+s=s.replace(anchor,replacement,1)
+# Hide original floating environment toolbar. Its controls remain active and are synchronized.
+s=s.replace('</body>', '<style id="v59EnvHidden">#v51LandscapeControls{display:none!important}</style></body>',1)
 assert '</body>' in s
 s=s.replace('</body>',inject+'</body>',1)
 assert all(seq[i]!=seq[(i+1)%54] for i in range(54))
