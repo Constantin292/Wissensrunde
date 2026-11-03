@@ -43,3 +43,5 @@ assert all(seq[i]!=seq[(i+1)%54] for i in range(54))
 assert len(s)>1_000_000
 p.write_text(s,encoding='utf-8')
 print('Version 59: 54 distinct categories checked, corners resized, symbols contrasted, settings moved')
+
+# Trigger preview build
