@@ -1,0 +1,35 @@
+name: Build isolated v59 board test
+on:
+  workflow_dispatch:
+  push:
+    branches: [entwicklung-v59]
+    paths: [v59-board-patch.py]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: entwicklung-v59
+      - name: Patch game on development branch only
+        run: |
+          python3 v59-board-patch.py
+      - name: Save build temporarily
+        run: cp index.html /tmp/wissensrunde-v59.html
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          clean: true
+      - name: Publish isolated test HTML
+        run: |
+          mkdir -p test
+          cp /tmp/wissensrunde-v59.html test/board-v59.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add test/board-v59.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Publish isolated v59 board test"
+            git push
+          fi
