@@ -26,14 +26,12 @@ inject=r"""
 <script id="v59BoardSettings">
 (function(){
 'use strict';
-const css=document.createElement('style');
-css.textContent='body:not(.playing) #v59Settings{display:none!important}#v59Settings{position:fixed;right:12px;top:12px;z-index:1100;background:#0b3046;color:white;border:1px solid #e2bd77;border-radius:12px;padding:10px;max-width:240px;box-shadow:0 6px 24px #0008}#v59Settings summary{cursor:pointer;font-weight:bold}#v59Settings #v51LandscapeControls{position:static!important;top:auto!important;right:auto!important;bottom:auto!important;left:auto!important;display:flex!important;width:200px!important;max-width:100%!important;margin-top:10px!important;box-shadow:none!important}#v59Settings:not([open]) #v51LandscapeControls{display:none!important}';
-document.head.append(css);
 const dock=document.getElementById('v51LandscapeControls');
 if(!dock)return;
-const details=document.createElement('details');details.id='v59Settings';
-const summary=document.createElement('summary');summary.textContent='⚙ Einstellungen';
-details.append(summary);details.append(dock);document.body.append(details);
+const settings=document.querySelector('#settingsPanel, #settingsModal, .settings-panel, .settings-modal, #settings, [data-panel="settings"]');
+if(!settings){dock.style.display='none';console.warn('Wissensrunde 59: existing settings container not identified; landscape controls hidden until integration');return}
+dock.style.position='static';dock.style.inset='auto';dock.style.display='block';dock.style.margin='12px 0';
+settings.appendChild(dock);
 })();
 </script>
 """
