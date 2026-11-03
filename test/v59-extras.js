@@ -21,4 +21,16 @@ if(which==='photo'){note.textContent='Fotomodus: blendet die Menüs aus. Über d
 }
 trigger.onclick=()=>{panel.hidden=false;render('treasure')};$('wr59Close').onclick=()=>{clearInterval(timer);panel.hidden=true};const nav=$('wr59Tabs');tabs.forEach(([label,id])=>button(label,()=>render(id),nav));
 const style=document.createElement('style');style.textContent='@keyframes wr59move{to{transform:translate(35vw,-6vh)}}@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important}}';document.head.append(style);
+
+// Version 59: Landschaftssteuerung in ein eigenes Einstellungsfenster verschieben.
+function wr59MoveEnvironment(){
+ const dock=document.getElementById('v51LandscapeControls');
+ if(!dock||document.getElementById('wr59EnvironmentSettings'))return;
+ const details=document.createElement('details');details.id='wr59EnvironmentSettings';
+ Object.assign(details.style,{position:'fixed',right:'12px',top:'12px',zIndex:'90',background:'#102c43',color:'#fff',border:'1px solid #d5ae68',borderRadius:'12px',padding:'10px',maxWidth:'min(90vw,360px)'});
+ const summary=document.createElement('summary');summary.textContent='⚙ Einstellungen';summary.style.cursor='pointer';details.append(summary);
+ dock.style.setProperty('position','static','important');dock.style.setProperty('display','flex','important');dock.style.setProperty('max-width','100%','important');dock.style.setProperty('box-shadow','none','important');
+ details.append(dock);document.body.append(details);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',wr59MoveEnvironment);else wr59MoveEnvironment();
 })();
