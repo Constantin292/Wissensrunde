@@ -1,0 +1,17 @@
+{
+  "version": 60,
+  "status": "design-prototype",
+  "board": {"spaces": 54, "categories": 9, "spacesPerCategory": 6, "closedLoop": true},
+  "worlds": [
+    {"id":"sport","label":"Sportwelt","landmarks":["Stadion","Zielflaggen"],"accent":"#E8B05A"},
+    {"id":"nature","label":"Naturwelt","landmarks":["Wald","Wasserfall","Wildtiere"],"accent":"#70BC75"},
+    {"id":"science","label":"Wissenschaftswelt","landmarks":["Sternwarte","Labor"],"accent":"#8CC9E9"},
+    {"id":"history","label":"Geschichtswelt","landmarks":["Burg","Steinbrücke"],"accent":"#DF8B7B"},
+    {"id":"geography","label":"Geografiewelt","landmarks":["Gebirge","Leuchtturm"],"accent":"#91C5C1"},
+    {"id":"arts","label":"Kunst- und Musikwelt","landmarks":["Freilichtbühne","Skulpturen"],"accent":"#BC9BE5"},
+    {"id":"language","label":"Sprach- und Literaturwelt","landmarks":["Bibliothek","Lesegarten"],"accent":"#E5CB75"},
+    {"id":"technology","label":"Technikwelt","landmarks":["Erfinderwerkstatt","Windrad"],"accent":"#8BBBE9"},
+    {"id":"everyday","label":"Alltags- und Wissenswelt","landmarks":["Marktplatz","Wissensstationen"],"accent":"#C5A5C8"}
+  ],
+  "note":"Labels are design placeholders. Map to actual nine game categories only after code inspection."
+}
