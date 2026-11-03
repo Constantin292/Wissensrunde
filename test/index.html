@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Wissensrunde 59 – Vorschau</title></head>
+<body style="background:#163148;color:white;font:18px Arial;padding:24px">
+<p>Wissensrunde 59 wird geladen …</p>
+<script>
+fetch('../index.html').then(r=>{if(!r.ok)throw Error('Spiel nicht gefunden');return r.text()}).then(html=>{
+const extra='<script src="./v59-extras.js"><\/script>';
+html=html.replace(/src=["']\.\/updates\.js["']/g,'src="../updates.js"');
+if(!html.includes('</body>'))throw Error('HTML-Ende fehlt');
+html=html.replace('</body>',extra+'</body>');
+document.open();document.write(html);document.close();
+}).catch(e=>{document.body.textContent='Testversion konnte nicht geladen werden: '+e.message});
+</script>
+</body></html>
